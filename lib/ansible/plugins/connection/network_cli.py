@@ -402,8 +402,6 @@ class Connection(ConnectionBase):
                 # repeating (like in the case of a wrong enable password, etc)
                 self._handle_prompt(window, prompts, answer, newline)
 
-            # XXX Should it be a warning here if recv.getvalue()[:len(command)] != command
-            display.debug("CLI-PROMPT: looking for prompt in | %s" % self._escape_crnl(window))
             if self._find_prompt(window):
                 self._last_response = recv.getvalue()
                 resp = self._strip(self._last_response)
