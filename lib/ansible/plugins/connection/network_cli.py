@@ -397,6 +397,10 @@ class Connection(ConnectionBase):
 
             if prompts and not handled:
                 handled = self._handle_prompt(window, prompts, answer, newline)
+            elif prompts and handled:
+                # check again even when handled, a sub-prompt could be 
+                # repeating (like in the case of a wrong enable password, etc)
+                self._handle_prompt(window, prompts, answer, newline)
 
             # XXX Should it be a warning here if recv.getvalue()[:len(command)] != command
             display.debug("CLI-PROMPT: looking for prompt in | %s" % self._escape_crnl(window))
